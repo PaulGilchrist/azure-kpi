@@ -1,0 +1,8 @@
+<div>
+    <div *ngIf="state!=null">
+        <div *ngFor="let application of state.applications">
+            <app-metrics-table [application]="application"></app-metrics-table>
+        </div>
+    </div>
+    EDH Applications Making Requests (April) = {{edhApplicationsMakingRequestsLastMonth}}
+</div>

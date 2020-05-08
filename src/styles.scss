@@ -1,0 +1,43 @@
+@import '~animate.css/animate.css';
+@import '~bootstrap/scss/bootstrap.scss';
+@import '~font-awesome/css/font-awesome.css';
+@import '~ngx-toastr/toastr-bs4-alert';
+@import '~pg-d3-utils/d3-utils.css';
+
+/*
+Try and keep global SCSS and CSS to a minimum and mainly to global variables.  This prevents components from breaking when used in other projects
+*/
+body { font-size: 13px; }
+h1 { font-size: 2.5em; }
+h2 { font-size: 2.0em; }
+h3 { font-size: 1.75em; }
+h4 { font-size: 1.5em; }
+h5 { font-size: 1.25em; }
+h6 { font-size: 1.0em; }
+
+.w-20 { width: 20%!important; }
+.w-30 { width: 30%!important; }
+.w-40 { width: 40%!important; }
+.w-45 { width: 45%!important; }
+.w-60 { width: 60%!important; }
+.w-70 { width: 70%!important; }
+
+// Small devices (landscape phones, 576px and up)
+@media only screen and (min-width: 576px) {
+    body { font-size: 14px; }
+}
+
+// Medium devices (tablets, 768px and up)
+@media only screen and (min-width: 768px) {
+    body { font-size: 15px; }
+}
+
+// Large devices (desktops, 992px and up)
+@media only screen and (min-width: 992px) {
+    body { font-size: 16px; }
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media only screen and (min-width: 1200px) {
+    body { font-size: 17px; }
+}

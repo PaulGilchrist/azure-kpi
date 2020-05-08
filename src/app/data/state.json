@@ -1,0 +1,164 @@
+{
+    "applications": [
+        {
+            "fullName": "Accounting/Finance Management - Land Cost Management",
+            "months": [
+                {
+                    "date": "5/1/2020",
+                    "employeesMakingRequests": 1,
+                    "activeEndpointActions": 67,
+                    "totalRequests": 344578,
+                    "readPercent": 100.0,
+                    "requestErrorPercent": 0.0,
+                    "avgResponseTimeMilliseconds": null,
+                    "avgResponseTimeEdhMilliseconds": null,
+                    "avgResponseTimeSqlMilliseconds": null,
+                    "minAvailableMemoryMB": 2174,
+                    "maxNormalizedPercentProcessorTime": 6,
+                    "avgIODataBytesPerSec": 5905,
+                    "sqlMaxDtuPercent": null
+                }
+            ],
+            "name": "LCM"
+        },
+        {
+            "fullName": "Construction Portal",
+            "months": [
+                {
+                    "date": "4/1/2020",
+                    "employeesMakingRequests": 1635,
+                    "activeEndpointActions": 136,
+                    "totalRequests": 215875,
+                    "readPercent": 83.7,
+                    "requestErrorPercent": 0.9,
+                    "avgResponseTimeMilliseconds": 221,
+                    "avgResponseTimeEdhMilliseconds": 115,
+                    "avgResponseTimeSqlMilliseconds": 45,
+                    "minAvailableMemoryMB": 2043,
+                    "maxNormalizedPercentProcessorTime": 53,
+                    "avgIODataBytesPerSec": 361754,
+                    "sqlMaxDtuPercent": null
+                },
+                {
+                    "date": "5/1/2020",
+                    "employeesMakingRequests": 2044,
+                    "activeEndpointActions": 160,
+                    "totalRequests": 1232002,
+                    "readPercent": 84.0,
+                    "requestErrorPercent": 1.0,
+                    "avgResponseTimeMilliseconds": 453,
+                    "avgResponseTimeEdhMilliseconds": 122,
+                    "avgResponseTimeSqlMilliseconds": 30,
+                    "minAvailableMemoryMB": 998,
+                    "maxNormalizedPercentProcessorTime": 99,
+                    "avgIODataBytesPerSec": 416839,
+                    "sqlMaxDtuPercent": null
+                }
+            ],
+            "name": "CP"
+        },
+        {
+            "fullName": "Enterprise Data Hub",
+            "months": [
+                {
+                    "date": "3/1/2020",
+                    "applicationsMakingRequests": 13,
+                    "partnersMakingRequests": 0,
+                    "employeesMakingRequests": 0,
+                    "homeJobsCreated": 0,
+                    "activeEndpointActions": 212,
+                    "totalRequests": 4246587,
+                    "readPercent": 82.0,
+                    "requestErrorPercent": 0.2,
+                    "avgResponseTimeMilliseconds": 51,
+                    "avgResponseTimeSqlMilliseconds": 12,
+                    "minAvailableMemoryMB": 4574,
+                    "maxNormalizedPercentProcessorTime": 26,
+                    "avgIODataBytesPerSec": 7832,
+                    "sqlMaxDtuPercent": null
+                },
+                {
+                    "date": "4/1/2020",
+                    "applicationsMakingRequests": 13,
+                    "partnersMakingRequests": 0,
+                    "employeesMakingRequests": 0,
+                    "homeJobsCreated": 1,
+                    "activeEndpointActions": 234,
+                    "totalRequests": 5107624,
+                    "readPercent": 85.6,
+                    "requestErrorPercent": 0.1,
+                    "avgResponseTimeMilliseconds": 52,
+                    "avgResponseTimeSqlMilliseconds": 13,
+                    "minAvailableMemoryMB": 4511,
+                    "maxNormalizedPercentProcessorTime": 46,
+                    "avgIODataBytesPerSec": 8699,
+                    "sqlMaxDtuPercent": null
+                },
+                {
+                    "date": "5/1/2020",
+                    "applicationsMakingRequests": 13,
+                    "partnersMakingRequests": 0,
+                    "employeesMakingRequests": 0,
+                    "homeJobsCreated": 0,
+                    "activeEndpointActions": 219,
+                    "totalRequests": 4832354,
+                    "readPercent": 85.3,
+                    "requestErrorPercent": 0.2,
+                    "avgResponseTimeMilliseconds": 40,
+                    "avgResponseTimeSqlMilliseconds": 13,
+                    "minAvailableMemoryMB": 4529,
+                    "maxNormalizedPercentProcessorTime": 18,
+                    "avgIODataBytesPerSec": 7200,
+                    "sqlMaxDtuPercent": 54
+                }
+            ],
+            "name": "EDH"
+        },
+        {
+            "fullName": "Home Designer",
+            "months": [
+                {
+                    "date": "4/1/2020",
+                    "employeesMakingRequests": 46,
+                    "activeEndpointActions": 141,
+                    "totalRequests": 272020,
+                    "readPercent": 80.3,
+                    "requestErrorPercent": 0.1,
+                    "avgResponseTimeMilliseconds": 585,
+                    "avgResponseTimeAsposeMilliseconds": 99,
+                    "avgResponseTimeDocusignMilliseconds": 98,
+                    "avgResponseTimeEBillExpressMilliseconds": 102,
+                    "avgResponseTimeEdhMilliseconds": 89,
+                    "avgResponseTimeMicrosoftOnlineMilliseconds": 103,
+                    "avgResponseTimePictureParkMilliseconds": 98,
+                    "avgResponseTimeSqlMilliseconds": null,
+                    "minAvailableMemoryMB": null,
+                    "maxNormalizedPercentProcessorTime": null,
+                    "avgIODataBytesPerSec": null,
+                    "sqlMaxDtuPercent": null
+                },
+                {
+                    "date": "5/1/2020",
+                    "employeesMakingRequests": 53,
+                    "activeEndpointActions": 144,
+                    "totalRequests": 456629,
+                    "readPercent": 87.9,
+                    "requestErrorPercent": 0.0,
+                    "avgResponseTimeMilliseconds": 500,
+                    "avgResponseTimeAsposeMilliseconds": 82,
+                    "avgResponseTimeDocusignMilliseconds": 85,
+                    "avgResponseTimeEBillExpressMilliseconds": 90,
+                    "avgResponseTimeEdhMilliseconds": 73,
+                    "avgResponseTimeMicrosoftOnlineMilliseconds": 91,
+                    "avgResponseTimePictureParkMilliseconds": 89,
+                    "avgResponseTimeSqlMilliseconds": null,
+                    "minAvailableMemoryMB": null,
+                    "maxNormalizedPercentProcessorTime": null,
+                    "avgIODataBytesPerSec": null,
+                    "sqlMaxDtuPercent": null
+                }
+            ],
+            "name": "PHD"
+        }
+    ]
+}

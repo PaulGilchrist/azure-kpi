@@ -1,0 +1,135 @@
+<div *ngIf="application!=null" class="card">
+    <div class="card-header bg-dark text-light d-flex align-items-center">
+        <h5 class="mr-auto">{{application.fullName}} ({{application.name}})</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Metric</th>
+                        <ng-container *ngFor="let month of application.months">
+                            <th scope="col">{{month.date}}</th>
+                        </ng-container>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="application.name=='EDH'">
+                        <td>Applications making requests</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.applicationsMakingRequests}}</td>
+                        </ng-container>
+                    </tr>
+                    <!-- <tr *ngIf="application.name=='EDH'">
+                        <td>Partners making requests</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.partnersMakingRequests}}</td>
+                        </ng-container>
+                    </tr> -->
+                    <tr>
+                        <td>Employees making requests</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.employeesMakingRequests}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <td>Active endpoint actions</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.activeEndpointActions}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <td>Total requests</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{numberWithCommas(month.totalRequests)}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <td>Read (%)</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.readPercent?.toFixed(1)}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <td>Request Error (%)</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.requestErrorPercent?.toFixed(1)}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <td>Avg response time (milliseconds)</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.avgResponseTimeMilliseconds}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr *ngIf="application.name!='EDH'">
+                        <td>Avg response time of EDH (milliseconds)</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.avgResponseTimeEdhMilliseconds}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr *ngIf="appHasDataForProperty(application.months, 'avgResponseTimeSqlMilliseconds')">
+                        <td>Avg response time of SQL (milliseconds)</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.avgResponseTimeSqlMilliseconds}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr *ngIf="application.name=='PHD'">
+                        <td>Avg response time of Aspose (milliseconds)</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.avgResponseTimeAsposeMilliseconds}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr *ngIf="application.name=='PHD'">
+                        <td>Avg response time of Docusign (milliseconds)</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.avgResponseTimeDocusignMilliseconds}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr *ngIf="application.name=='PHD'">
+                        <td>Avg response time of eBillExpress (milliseconds)</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.avgResponseTimeEBillExpressMilliseconds}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr *ngIf="application.name=='PHD'">
+                        <td>Avg response time of MicrosoftOnline (milliseconds)</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.avgResponseTimeMicrosoftOnlineMilliseconds}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr *ngIf="application.name=='PHD'">
+                        <td>Avg response time of PicturePark (milliseconds)</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.avgResponseTimePictureParkMilliseconds}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr *ngIf="appHasDataForProperty(application.months, 'minAvailableMemoryMB')">
+                        <td>Min available memory (megabytes)</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{numberWithCommas(month.minAvailableMemoryMB)}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr *ngIf="appHasDataForProperty(application.months, 'maxNormalizedPercentProcessorTime')">
+                        <td>Max normalized % processor time</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.maxNormalizedPercentProcessorTime}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr *ngIf="appHasDataForProperty(application.months, 'avgIODataBytesPerSec')">
+                        <td>Avg IO data (bytes/sec)</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{numberWithCommas(month.avgIODataBytesPerSec)}}</td>
+                        </ng-container>
+                    </tr>
+                    <tr *ngIf="appHasDataForProperty(application.months, 'sqlMaxDtuPercent')">
+                        <td>SQL max DTU percent</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.sqlMaxDtuPercent}}</td>
+                        </ng-container>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
