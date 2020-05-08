@@ -5,125 +5,126 @@
             "months": [
                 {
                     "date": "5/1/2020",
-                    "employeesMakingRequests": 1,
                     "activeEndpointActions": 67,
-                    "totalRequests": 344578,
-                    "readPercent": 100.0,
-                    "requestErrorPercent": 0.0,
+                    "activeUsers": 1,
+                    "avgIODataBytesPerSec": 5905,
                     "avgResponseTimeMilliseconds": null,
                     "avgResponseTimeEdhMilliseconds": null,
                     "avgResponseTimeSqlMilliseconds": null,
-                    "minAvailableMemoryMB": 2174,
                     "maxNormalizedPercentProcessorTime": 6,
-                    "avgIODataBytesPerSec": 5905,
-                    "sqlMaxDtuPercent": null
+                    "minAvailableMemoryMB": 2174,
+                    "readPercent": 100.0,
+                    "requestErrorPercent": 0.0,
+                    "sqlMaxDtuPercent": null,
+                    "totalRequests": 344578
                 }
             ],
-            "name": "LCM"
+            "name": "LCM",
+            "roleName": "lcmwebwestprod"
         },
         {
             "fullName": "Construction Portal",
             "months": [
                 {
                     "date": "4/1/2020",
-                    "employeesMakingRequests": 1635,
                     "activeEndpointActions": 136,
-                    "totalRequests": 215875,
-                    "readPercent": 83.7,
-                    "requestErrorPercent": 0.9,
+                    "activeUsers": 1635,
+                    "avgIODataBytesPerSec": 361754,
                     "avgResponseTimeMilliseconds": 221,
                     "avgResponseTimeEdhMilliseconds": 115,
                     "avgResponseTimeSqlMilliseconds": 45,
-                    "minAvailableMemoryMB": 2043,
                     "maxNormalizedPercentProcessorTime": 53,
-                    "avgIODataBytesPerSec": 361754,
-                    "sqlMaxDtuPercent": null
+                    "minAvailableMemoryMB": 2043,
+                    "readPercent": 83.7,
+                    "requestErrorPercent": 0.9,
+                    "sqlMaxDtuPercent": null,
+                    "totalRequests": 215875
                 },
                 {
                     "date": "5/1/2020",
-                    "employeesMakingRequests": 2044,
                     "activeEndpointActions": 160,
-                    "totalRequests": 1232002,
-                    "readPercent": 84.0,
-                    "requestErrorPercent": 1.0,
+                    "activeUsers": 2044,
+                    "avgIODataBytesPerSec": 416839,
                     "avgResponseTimeMilliseconds": 453,
                     "avgResponseTimeEdhMilliseconds": 122,
                     "avgResponseTimeSqlMilliseconds": 30,
-                    "minAvailableMemoryMB": 998,
                     "maxNormalizedPercentProcessorTime": 99,
-                    "avgIODataBytesPerSec": 416839,
-                    "sqlMaxDtuPercent": null
+                    "minAvailableMemoryMB": 998,
+                    "readPercent": 84.0,
+                    "requestErrorPercent": 1.0,
+                    "sqlMaxDtuPercent": null,
+                    "totalRequests": 1232002
                 }
             ],
-            "name": "CP"
+            "name": "CP",
+            "roleName": "pcpwebwestprod"
         },
         {
             "fullName": "Enterprise Data Hub",
             "months": [
                 {
                     "date": "3/1/2020",
-                    "applicationsMakingRequests": 13,
-                    "partnersMakingRequests": 0,
-                    "employeesMakingRequests": 0,
-                    "homeJobsCreated": 0,
+                    "activeApplications": 13,
                     "activeEndpointActions": 212,
-                    "totalRequests": 4246587,
-                    "readPercent": 82.0,
-                    "requestErrorPercent": 0.2,
+                    "activePartners": 0,
+                    "activeUsers": 0,
+                    "homeJobsCreated": 0,
+                    "avgIODataBytesPerSec": 7832,
                     "avgResponseTimeMilliseconds": 51,
                     "avgResponseTimeSqlMilliseconds": 12,
-                    "minAvailableMemoryMB": 4574,
                     "maxNormalizedPercentProcessorTime": 26,
-                    "avgIODataBytesPerSec": 7832,
-                    "sqlMaxDtuPercent": null
+                    "minAvailableMemoryMB": 4574,
+                    "readPercent": 82.0,
+                    "requestErrorPercent": 0.2,
+                    "sqlMaxDtuPercent": null,
+                    "totalRequests": 4246587
                 },
                 {
                     "date": "4/1/2020",
-                    "applicationsMakingRequests": 13,
-                    "partnersMakingRequests": 0,
-                    "employeesMakingRequests": 0,
-                    "homeJobsCreated": 1,
+                    "activeApplications": 13,
                     "activeEndpointActions": 234,
-                    "totalRequests": 5107624,
-                    "readPercent": 85.6,
-                    "requestErrorPercent": 0.1,
+                    "activePartners": 0,
+                    "activeUsers": 0,
+                    "homeJobsCreated": 1,
+                    "avgIODataBytesPerSec": 8699,
                     "avgResponseTimeMilliseconds": 52,
                     "avgResponseTimeSqlMilliseconds": 13,
-                    "minAvailableMemoryMB": 4511,
                     "maxNormalizedPercentProcessorTime": 46,
-                    "avgIODataBytesPerSec": 8699,
-                    "sqlMaxDtuPercent": null
+                    "minAvailableMemoryMB": 4511,
+                    "readPercent": 85.6,
+                    "requestErrorPercent": 0.1,
+                    "sqlMaxDtuPercent": null,
+                    "totalRequests": 5107624
                 },
                 {
                     "date": "5/1/2020",
-                    "applicationsMakingRequests": 13,
-                    "partnersMakingRequests": 0,
-                    "employeesMakingRequests": 0,
-                    "homeJobsCreated": 0,
+                    "activeApplications": 13,
                     "activeEndpointActions": 219,
-                    "totalRequests": 4832354,
-                    "readPercent": 85.3,
-                    "requestErrorPercent": 0.2,
+                    "activePartners": 0,
+                    "activeUsers": 0,
+                    "homeJobsCreated": 0,
+                    "avgIODataBytesPerSec": 7200,
                     "avgResponseTimeMilliseconds": 40,
                     "avgResponseTimeSqlMilliseconds": 13,
-                    "minAvailableMemoryMB": 4529,
                     "maxNormalizedPercentProcessorTime": 18,
-                    "avgIODataBytesPerSec": 7200,
-                    "sqlMaxDtuPercent": 54
+                    "minAvailableMemoryMB": 4529,
+                    "readPercent": 85.3,
+                    "requestErrorPercent": 0.2,
+                    "sqlMaxDtuPercent": 54,
+                    "totalRequests": 4832354
                 }
             ],
-            "name": "EDH"
+            "name": "EDH",
+            "roleName": "edhapiwestprod"
         },
         {
             "fullName": "Home Designer",
             "months": [
                 {
                     "date": "4/1/2020",
-                    "employeesMakingRequests": 46,
                     "activeEndpointActions": 141,
-                    "totalRequests": 272020,
-                    "readPercent": 80.3,
-                    "requestErrorPercent": 0.1,
+                    "activeUsers": 46,
+                    "avgIODataBytesPerSec": null,
                     "avgResponseTimeMilliseconds": 585,
                     "avgResponseTimeAsposeMilliseconds": 99,
                     "avgResponseTimeDocusignMilliseconds": 98,
@@ -132,18 +133,18 @@
                     "avgResponseTimeMicrosoftOnlineMilliseconds": 103,
                     "avgResponseTimePictureParkMilliseconds": 98,
                     "avgResponseTimeSqlMilliseconds": null,
-                    "minAvailableMemoryMB": null,
                     "maxNormalizedPercentProcessorTime": null,
-                    "avgIODataBytesPerSec": null,
-                    "sqlMaxDtuPercent": null
+                    "minAvailableMemoryMB": null,
+                    "readPercent": 80.3,
+                    "requestErrorPercent": 0.1,
+                    "sqlMaxDtuPercent": null,
+                    "totalRequests": 272020
                 },
                 {
                     "date": "5/1/2020",
-                    "employeesMakingRequests": 53,
                     "activeEndpointActions": 144,
-                    "totalRequests": 456629,
-                    "readPercent": 87.9,
-                    "requestErrorPercent": 0.0,
+                    "activeUsers": 53,
+                    "avgIODataBytesPerSec": null,
                     "avgResponseTimeMilliseconds": 500,
                     "avgResponseTimeAsposeMilliseconds": 82,
                     "avgResponseTimeDocusignMilliseconds": 85,
@@ -152,13 +153,16 @@
                     "avgResponseTimeMicrosoftOnlineMilliseconds": 91,
                     "avgResponseTimePictureParkMilliseconds": 89,
                     "avgResponseTimeSqlMilliseconds": null,
-                    "minAvailableMemoryMB": null,
                     "maxNormalizedPercentProcessorTime": null,
-                    "avgIODataBytesPerSec": null,
-                    "sqlMaxDtuPercent": null
+                    "minAvailableMemoryMB": null,
+                    "readPercent": 87.9,
+                    "requestErrorPercent": 0.0,
+                    "sqlMaxDtuPercent": null,
+                    "totalRequests": 456629
                 }
             ],
-            "name": "PHD"
+            "name": "PHD",
+            "roleName": "phdapiwestprod"
         }
     ]
 }

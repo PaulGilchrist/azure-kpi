@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { KustoService } from './services/kusto.service';
+import { DependencyName } from './models/dependencyName.model';
 import { Month } from './models/month.model';
+import { Query } from './models/query.model';
 import { State } from './models/state.model';
 
 @Component({
@@ -69,24 +71,75 @@ export class AppComponent implements OnInit {
         // Determine if it is time to get the next month's of data
         // Date will be first of month when full month was collected
         const firstDayOfCurrentMonth = this.firstDayOfCurrentMonth();
-
-
-
-        // if (true) {
         if (firstDayOfCurrentMonth > this.firstDayOfFollowingMonth(mostRecentDate)) {
-
-
-
-            // Loop through applications adding a new month to each, and collect all the neccessary metrics
+            // Loop through applications adding a new month to each, and collecting all the neccessary metrics
             this.state.applications.forEach(app => {
+                let query = '';
                 const month: Month = {
                     date: `${firstDayOfCurrentMonth.getMonth() + 1}/1/${firstDayOfCurrentMonth.getFullYear()}`
                 };
                 app.months.push(month);
-                // Make first kusto query, and summarize results in UI
-                this.kustoService.getApplicationsMakingRequests(app.name).subscribe(
-                    x => month.applicationsMakingRequests = x,
-                    err => console.error(err)
+                this.kustoService.getKustoResult(app, Query.ActiveApplications).subscribe(
+                    x => month.activeApplications = x, err => console.error(err)
+                );
+                this.kustoService.getKustoResult(app, Query.ActiveEndpointActions).subscribe(
+                    x => month.activeEndpointActions = x, err => console.error(err)
+                );
+                this.kustoService.getKustoResult(app, Query.ActiveUsers).subscribe(
+                    x => month.activeUsers = x, err => console.error(err)
+                );
+                this.kustoService.getKustoResult(app, Query.AvgIODataBytesPerSec).subscribe(
+                    x => month.avgIODataBytesPerSec = x, err => console.error(err)
+                );
+                this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.EDH).subscribe(
+                    x => month.avgResponseTimeEdhMilliseconds = x, err => console.error(err)
+                );
+                if (app.name === 'PHD') {
+                    this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.Aspose).subscribe(
+                        x => month.avgResponseTimeAsposeMilliseconds = x, err => console.error(err)
+                    );
+                    this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.Docusign).subscribe(
+                        x => month.avgResponseTimeDocusignMilliseconds = x, err => console.error(err)
+                    );
+                    this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.EBillExpress).subscribe(
+                        x => month.avgResponseTimeEBillExpressMilliseconds = x, err => console.error(err)
+                    );
+                    this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.MicrosoftOnline).subscribe(
+                        x => month.avgResponseTimeMicrosoftOnlineMilliseconds = x, err => console.error(err)
+                    );
+                    this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.PicturePark).subscribe(
+                        x => month.avgResponseTimePictureParkMilliseconds = x, err => console.error(err)
+                    );
+                }
+                // CP has the API and Web together requiring a unique query
+                if (app.name === 'CP') {
+                    query = Query.AvgResponseTimeMillisecondsCP;
+                } else {
+                    query = Query.AvgResponseTimeMilliseconds;
+                }
+                this.kustoService.getKustoResult(app, query).subscribe(
+                    x => month.avgResponseTimeMilliseconds = x, err => console.error(err)
+                );
+                this.kustoService.getKustoResult(app, Query.AvgResponseTimeSqlMilliseconds).subscribe(
+                    x => month.avgResponseTimeSqlMilliseconds = x, err => console.error(err)
+                );
+                this.kustoService.getKustoResult(app, Query.MaxNormalizedPercentProcessorTime).subscribe(
+                    x => month.maxNormalizedPercentProcessorTime = x, err => console.error(err)
+                );
+                this.kustoService.getKustoResult(app, Query.MinAvailableMemoryMB).subscribe(
+                    x => month.minAvailableMemoryMB = x, err => console.error(err)
+                );
+                this.kustoService.getKustoResult(app, Query.RequestErrorPercent).subscribe(
+                    x => month.requestErrorPercent = Number(x), err => console.error(err)
+                );
+                this.kustoService.getKustoResult(app, Query.ReadPercent).subscribe(
+                    x => month.readPercent = Number(x), err => console.error(err)
+                );
+                // this.kustoService.getKustoResult(app, Query.SqlMaxDtuPercent).subscribe(
+                //     x => month.sqlMaxDtuPercent = x, err => console.error(err)
+                // );
+                this.kustoService.getKustoResult(app, Query.TotalRequests).subscribe(
+                    x => month.totalRequests = Number(x), err => console.error(err)
                 );
             });
         }

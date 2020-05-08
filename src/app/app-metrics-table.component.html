@@ -15,21 +15,9 @@
                 </thead>
                 <tbody>
                     <tr *ngIf="application.name=='EDH'">
-                        <td>Applications making requests</td>
+                        <td>Active Applications</td>
                         <ng-container *ngFor="let month of application.months">
-                            <td scope="col">{{month.applicationsMakingRequests}}</td>
-                        </ng-container>
-                    </tr>
-                    <!-- <tr *ngIf="application.name=='EDH'">
-                        <td>Partners making requests</td>
-                        <ng-container *ngFor="let month of application.months">
-                            <td scope="col">{{month.partnersMakingRequests}}</td>
-                        </ng-container>
-                    </tr> -->
-                    <tr>
-                        <td>Employees making requests</td>
-                        <ng-container *ngFor="let month of application.months">
-                            <td scope="col">{{month.employeesMakingRequests}}</td>
+                            <td scope="col">{{month.activeApplications}}</td>
                         </ng-container>
                     </tr>
                     <tr>
@@ -38,6 +26,18 @@
                             <td scope="col">{{month.activeEndpointActions}}</td>
                         </ng-container>
                     </tr>
+                    <tr>
+                        <td>Active users</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.activeUsers}}</td>
+                        </ng-container>
+                    </tr>
+                    <!-- <tr *ngIf="application.name=='EDH'">
+                        <td>Partners making requests</td>
+                        <ng-container *ngFor="let month of application.months">
+                            <td scope="col">{{month.activePartners}}</td>
+                        </ng-container>
+                    </tr> -->
                     <tr>
                         <td>Total requests</td>
                         <ng-container *ngFor="let month of application.months">
@@ -53,7 +53,7 @@
                     <tr>
                         <td>Request Error (%)</td>
                         <ng-container *ngFor="let month of application.months">
-                            <td scope="col">{{month.requestErrorPercent?.toFixed(1)}}</td>
+                            <td scope="col">{{month.requestErrorPercent ? month.requestErrorPercent.toFixed(1) : ''}}</td>
                         </ng-container>
                     </tr>
                     <tr>

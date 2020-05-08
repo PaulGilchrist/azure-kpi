@@ -1,13 +1,10 @@
 export interface Month {
     date: string;
-    applicationsMakingRequests?: number; // Total unique application making requests during the month
-    partnersMakingRequests?: number;
-    employeesMakingRequests?: number;
-    homeJobsCreated?: number;
+    activeApplications?: number; // Total unique application making requests during the month
     activeEndpointActions?: number;
-    totalRequests?: number;
-    readPercent?: number;
-    requestErrorPercent?: number;
+    activePartners?: number;
+    activeUsers?: number;
+    avgIODataBytesPerSec?: number;
     avgResponseTimeMilliseconds?: number;
     avgResponseTimeAsposeMilliseconds?: number;
     avgResponseTimeDocusignMilliseconds?: number;
@@ -16,8 +13,11 @@ export interface Month {
     avgResponseTimeMicrosoftOnlineMilliseconds?: number;
     avgResponseTimePictureParkMilliseconds?: number;
     avgResponseTimeSqlMilliseconds?: number;
+    homeJobsCreated?: number;
     minAvailableMemoryMB?: number;
     maxNormalizedPercentProcessorTime?: number;
-    avgIODataBytesPerSec?: number;
+    readPercent?: number;
+    requestErrorPercent?: number;
     sqlMaxDtuPercent?: number;
+    totalRequests?: number;
 }
