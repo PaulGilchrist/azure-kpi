@@ -6,6 +6,7 @@ import { DependencyName } from './models/dependencyName.model';
 import { Month } from './models/month.model';
 import { Query } from './models/query.model';
 import { State } from './models/state.model';
+import { forkJoin } from 'rxjs';
 
 @Component({
     selector: 'app-root',
@@ -74,75 +75,70 @@ export class AppComponent implements OnInit {
         if (firstDayOfCurrentMonth > this.firstDayOfFollowingMonth(mostRecentDate)) {
             // Loop through applications adding a new month to each, and collecting all the neccessary metrics
             this.state.applications.forEach(app => {
-                let query = '';
                 const month: Month = {
                     date: `${firstDayOfCurrentMonth.getMonth() + 1}/1/${firstDayOfCurrentMonth.getFullYear()}`
                 };
                 app.months.push(month);
-                this.kustoService.getKustoResult(app, Query.ActiveApplications).subscribe(
-                    x => month.activeApplications = x, err => console.error(err)
-                );
-                this.kustoService.getKustoResult(app, Query.ActiveEndpointActions).subscribe(
-                    x => month.activeEndpointActions = x, err => console.error(err)
-                );
-                this.kustoService.getKustoResult(app, Query.ActiveUsers).subscribe(
-                    x => month.activeUsers = x, err => console.error(err)
-                );
-                this.kustoService.getKustoResult(app, Query.AvgIODataBytesPerSec).subscribe(
-                    x => month.avgIODataBytesPerSec = x, err => console.error(err)
-                );
-                this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.EDH).subscribe(
-                    x => month.avgResponseTimeEdhMilliseconds = x, err => console.error(err)
-                );
-                if (app.name === 'PHD') {
-                    this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.Aspose).subscribe(
-                        x => month.avgResponseTimeAsposeMilliseconds = x, err => console.error(err)
-                    );
-                    this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.Docusign).subscribe(
-                        x => month.avgResponseTimeDocusignMilliseconds = x, err => console.error(err)
-                    );
-                    this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.EBillExpress).subscribe(
-                        x => month.avgResponseTimeEBillExpressMilliseconds = x, err => console.error(err)
-                    );
-                    this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.MicrosoftOnline).subscribe(
-                        x => month.avgResponseTimeMicrosoftOnlineMilliseconds = x, err => console.error(err)
-                    );
-                    this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.PicturePark).subscribe(
-                        x => month.avgResponseTimePictureParkMilliseconds = x, err => console.error(err)
-                    );
-                }
+                let observableArray = [
+                    this.kustoService.getKustoResult(app, Query.ActiveApplications),
+                    this.kustoService.getKustoResult(app, Query.ActiveEndpointActions),
+                    this.kustoService.getKustoResult(app, Query.ActiveUsers),
+                    this.kustoService.getKustoResult(app, Query.AvgIODataBytesPerSec),
+                    this.kustoService.getKustoResult(app, Query.AvgResponseTimeSqlMilliseconds),
+                    this.kustoService.getKustoResult(app, Query.MaxNormalizedPercentProcessorTime),
+                    this.kustoService.getKustoResult(app, Query.MinAvailableMemoryMB),
+                    this.kustoService.getKustoResult(app, Query.ReadPercent),
+                    this.kustoService.getKustoResult(app, Query.RequestErrorPercent),
+                    // this.kustoService.getKustoResult(app, Query.SqlMaxDtuPercent)
+                    this.kustoService.getKustoResult(app, Query.TotalRequests)
+                ];
                 // CP has the API and Web together requiring a unique query
                 if (app.name === 'CP') {
-                    query = Query.AvgResponseTimeMillisecondsCP;
+                    observableArray.push(this.kustoService.getKustoResult(app, Query.AvgResponseTimeMillisecondsCP));
                 } else {
-                    query = Query.AvgResponseTimeMilliseconds;
+                    observableArray.push(this.kustoService.getKustoResult(app, Query.AvgResponseTimeMilliseconds));
                 }
-                this.kustoService.getKustoResult(app, query).subscribe(
-                    x => month.avgResponseTimeMilliseconds = x, err => console.error(err)
-                );
-                this.kustoService.getKustoResult(app, Query.AvgResponseTimeSqlMilliseconds).subscribe(
-                    x => month.avgResponseTimeSqlMilliseconds = x, err => console.error(err)
-                );
-                this.kustoService.getKustoResult(app, Query.MaxNormalizedPercentProcessorTime).subscribe(
-                    x => month.maxNormalizedPercentProcessorTime = x, err => console.error(err)
-                );
-                this.kustoService.getKustoResult(app, Query.MinAvailableMemoryMB).subscribe(
-                    x => month.minAvailableMemoryMB = x, err => console.error(err)
-                );
-                this.kustoService.getKustoResult(app, Query.RequestErrorPercent).subscribe(
-                    x => month.requestErrorPercent = Number(x), err => console.error(err)
-                );
-                this.kustoService.getKustoResult(app, Query.ReadPercent).subscribe(
-                    x => month.readPercent = Number(x), err => console.error(err)
-                );
-                // this.kustoService.getKustoResult(app, Query.SqlMaxDtuPercent).subscribe(
-                //     x => month.sqlMaxDtuPercent = x, err => console.error(err)
-                // );
-                this.kustoService.getKustoResult(app, Query.TotalRequests).subscribe(
-                    x => month.totalRequests = Number(x), err => console.error(err)
-                );
+                if (app.name !== 'EDH') {
+                    observableArray.push(this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.EDH));
+                }
+                if (app.name === 'PHD') {
+                    observableArray = observableArray.concat([
+                        this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.Aspose),
+                        this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.Docusign),
+                        this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.EBillExpress),
+                        this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.MicrosoftOnline),
+                        this.kustoService.getKustoResult(app, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.PicturePark)
+                    ]);
+                }
+                forkJoin(observableArray).subscribe(results => {
+                    month.activeApplications = results[0];
+                    month.activeEndpointActions = results[1];
+                    month.activeUsers = results[2];
+                    month.avgIODataBytesPerSec = results[3];
+                    month.avgResponseTimeSqlMilliseconds = results[4];
+                    month.maxNormalizedPercentProcessorTime = results[5];
+                    month.minAvailableMemoryMB = results[6];
+                    month.readPercent = Number(results[7]);
+                    month.requestErrorPercent = Number(results[8]);
+                    month.totalRequests = Number(results[9]);
+                    month.avgResponseTimeMilliseconds = results[10];
+                    if (app.name !== 'EDH') {
+                        month.avgResponseTimeEdhMilliseconds = results[11];
+                    }
+                    if (app.name === 'PHD') {
+                        month.avgResponseTimeAsposeMilliseconds = results[12];
+                        month.avgResponseTimeDocusignMilliseconds = results[13];
+                        month.avgResponseTimeEBillExpressMilliseconds = results[14];
+                        month.avgResponseTimeMicrosoftOnlineMilliseconds = results[15];
+                        month.avgResponseTimePictureParkMilliseconds = results[16];
+                    }
+                    // Save to local storage
+                    localStorage.setItem('state', JSON.stringify(this.state));
+                }, err => console.error(err));
             });
         }
     }
+
+
 
 }
