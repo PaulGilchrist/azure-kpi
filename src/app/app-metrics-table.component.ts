@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+
+import { environment } from './../environments/environment';
 
 import { Application } from './models/application.model';
 import { Month } from './models/month.model';
@@ -8,12 +10,11 @@ import { Month } from './models/month.model';
     templateUrl: './app-metrics-table.component.html',
     styleUrls: ['./app-metrics-table.component.scss']
 })
-export class AppMetricsTableComponent implements OnInit {
+export class AppMetricsTableComponent {
+
+    environment = environment;
 
     @Input() application: Application;
-
-    ngOnInit() {
-    }
 
     numberWithCommas(x) {
         if (x) {

@@ -4,9 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../environments/environment';
 
 import { KustoService } from './services/kusto.service';
-import { DependencyName } from './models/dependencyName.model';
 import { Month } from './models/month.model';
-import { Query } from './models/query.model';
 import { State } from './models/state.model';
 import { forkJoin } from 'rxjs';
 import { Application } from './models/application.model';
@@ -52,44 +50,12 @@ export class AppComponent implements OnInit {
         };
         app.months.push(month);
         this.enableExport = false;
-        const observableArray = [
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.ActiveApplications),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.ActiveEndpointActions),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.ActiveUsers),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgIODataBytesPerSec),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeSqlMilliseconds),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.MaxNormalizedPercentProcessorTime),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.MinAvailableMemoryMB),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.ReadPercent),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.RequestErrorPercent),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.TotalRequests),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeMilliseconds),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.EDH),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.Aspose),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.Docusign),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.EBillExpress),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.MicrosoftOnline),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.PicturePark)
-            // this.kustoService.getKustoResult(app, Query.SqlMaxDtuPercent)
-        ];
+        const observableArray = []
+        environment.queries.forEach(query => observableArray.push(this.kustoService.getKustoResult(app, fromDate, toDate, query.query)));
         forkJoin(observableArray).subscribe(results => {
-            month.activeApplications = Number(results[0]);
-            month.activeEndpointActions = Number(results[1]);
-            month.activeUsers = Number(results[2]);
-            month.avgIODataBytesPerSec = Number(results[3]);
-            month.avgResponseTimeSqlMilliseconds = Number(results[4]);
-            month.maxNormalizedPercentProcessorTime = Number(results[5]);
-            month.minAvailableMemoryMB = Number(results[6]);
-            month.readPercent = Number(results[7]);
-            month.requestErrorPercent = Number(results[8]);
-            month.totalRequests = Number(results[9]);
-            month.avgResponseTimeMilliseconds = Number(results[10]);
-            month.avgResponseTimeEdhMilliseconds = Number(results[11]);
-            month.avgResponseTimeAsposeMilliseconds = Number(results[12]);
-            month.avgResponseTimeDocusignMilliseconds = Number(results[13]);
-            month.avgResponseTimeEBillExpressMilliseconds = Number(results[14]);
-            month.avgResponseTimeMicrosoftOnlineMilliseconds = Number(results[15]);
-            month.avgResponseTimePictureParkMilliseconds = Number(results[16]);
+            for (let i = 0; i < environment.queries.length; i++) {
+                month[environment.queries[i].name] = Number(results[i]);
+            }
             // Save to local storage
             localStorage.setItem('state', JSON.stringify(this.state));
             this.enableExport = true;

@@ -36,14 +36,13 @@ export class KustoService {
         return connection;
     }
 
-    public getKustoResult(application: Application, fromDate: Date, toDate: Date, query: string, dependencyName: string = null): Observable<number> {
+    public getKustoResult(application: Application, fromDate: Date, toDate: Date, query: string): Observable<number> {
         // Query Azure App Insights
         const connection = this.getConnection(application.name);
         query = query
             // January is 0 not 1
             .replace('<FromDateGoesHere>', `${fromDate.getMonth() + 1}/${fromDate.getDate()}/${fromDate.getFullYear()}`)
             .replace('<ToDateGoesHere>', `${toDate.getMonth() + 1}/${fromDate.getDate()}/${toDate.getFullYear()}`)
-            .replace('<DependencyNameGoesHere>', dependencyName)
             .replace('<RoleNameGoesHere>', connection.roleName);
         return this.http.post<number>(connection.url, { query }, connection.options).pipe(
             map((response: any) => {

@@ -5,31 +5,29 @@
             "months": [
                 {
                     "date": "4/1/2020",
-                    "activeApplications": 201,
                     "activeEndpointActions": 714,
                     "activeUsers": 201,
                     "avgIODataBytesPerSec": 7235,
+                    "avgResponseTimeMilliseconds": 198,
                     "avgResponseTimeSqlMilliseconds": 66,
                     "maxNormalizedPercentProcessorTime": 6,
                     "minAvailableMemoryMB": null,
                     "readPercent": 48.5,
                     "requestErrorPercent": 0.2,
-                    "totalRequests": 83070,
-                    "avgResponseTimeMilliseconds": 198
+                    "totalRequests": 83070
                 },
                 {
                     "date": "5/1/2020",
-                    "activeApplications": 209,
                     "activeEndpointActions": 558,
                     "activeUsers": 209,
                     "avgIODataBytesPerSec": 8343,
+                    "avgResponseTimeMilliseconds": 210,
                     "avgResponseTimeSqlMilliseconds": 71,
                     "maxNormalizedPercentProcessorTime": 4,
                     "minAvailableMemoryMB": null,
                     "readPercent": 50.8,
                     "requestErrorPercent": 0.2,
-                    "totalRequests": 84609,
-                    "avgResponseTimeMilliseconds": 210
+                    "totalRequests": 84609
                 }
             ],
             "name": "AMPP"
@@ -75,10 +73,8 @@
             "months": [
                 {
                     "date": "3/1/2020",
-                    "activeApplications": 13,
                     "activeEndpointActions": 212,
-                    "activePartners": 0,
-                    "activeUsers": 0,
+                    "activeUsers": 13,
                     "homeJobsCreated": 0,
                     "avgIODataBytesPerSec": 7832,
                     "avgResponseTimeMilliseconds": 51,
@@ -92,10 +88,8 @@
                 },
                 {
                     "date": "4/1/2020",
-                    "activeApplications": 13,
                     "activeEndpointActions": 234,
-                    "activePartners": 0,
-                    "activeUsers": 0,
+                    "activeUsers": 13,
                     "homeJobsCreated": 1,
                     "avgIODataBytesPerSec": 8699,
                     "avgResponseTimeMilliseconds": 52,
@@ -109,10 +103,8 @@
                 },
                 {
                     "date": "5/1/2020",
-                    "activeApplications": 13,
                     "activeEndpointActions": 219,
-                    "activePartners": 0,
-                    "activeUsers": 0,
+                    "activeUsers": 13,
                     "homeJobsCreated": 0,
                     "avgIODataBytesPerSec": 7200,
                     "avgResponseTimeMilliseconds": 40,
