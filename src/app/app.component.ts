@@ -8,6 +8,8 @@ import { Month } from './models/month.model';
 import { State } from './models/state.model';
 import { forkJoin } from 'rxjs';
 import { Application } from './models/application.model';
+import { PropertyBindingType } from '@angular/compiler';
+import { tickStep } from 'd3';
 
 @Component({
     selector: 'app-root',
@@ -50,7 +52,7 @@ export class AppComponent implements OnInit {
         };
         app.months.push(month);
         this.enableExport = false;
-        const observableArray = []
+        const observableArray = [];
         environment.queries.forEach(query => observableArray.push(this.kustoService.getKustoResult(app, fromDate, toDate, query.query)));
         forkJoin(observableArray).subscribe(results => {
             for (let i = 0; i < environment.queries.length; i++) {
@@ -82,6 +84,100 @@ export class AppComponent implements OnInit {
         });
         return app;
     }
+
+    exportData() {
+        const json = JSON.stringify(this.state);
+        const blob = new Blob([json], {type: 'application/json'});
+        const href = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = href;
+        link.download = 'app-metrics.json';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    exportDataCsv() {
+        let csv = 'applicationName,applicationFullName,date,metricName,metricValue\n';
+        this.state.applications.forEach(application =>
+            application.months.forEach(month =>
+                Object.getOwnPropertyNames(month).forEach(metricName => {
+                    const metricValue = month[metricName];
+                    if (metricName !== 'date' && metricValue !== null) {
+                        csv += `${application.name},${application.fullName},${month.date},${metricName},${metricValue}\n`;
+                    }
+                })
+            )
+        );
+        const blob = new Blob([csv], {type: 'text/plain'});
+        const href = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = href;
+        link.download = 'app-metrics.csv';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    importData(event) {
+        if (event.target.files.length !== 1) {
+            console.error('No file selected');
+        } else {
+            const reader = new FileReader();
+            reader.onloadend = (e) => {
+                // handle data processing
+                const fileAsString = reader.result.toString();
+                if (event.target.files[0].name.endsWith('.csv')) {
+                    console.log('Importing CSV');
+                    this.state.applications = [];
+                    const rows = fileAsString.split('\n');
+                    // Skip the header row
+                    for (let i = 1; i < rows.length; i++) {
+                        const columns = rows[i].split(',');
+                        // Add app if it does not already exist
+                        if (columns[0] !== '') {
+                            let app = this.state.applications.find(a => a.name === columns[0]);
+                            if (app === undefined) {
+                                app = this.createNewApp({
+                                    fullName: columns[1],
+                                    months: [],
+                                    name: columns[0]
+                                });
+                            }
+                            // Add month if it does not already exist
+                            let month = app.months.find(m => m.date === columns[2]);
+                            if (month === undefined) {
+                                month = { date: columns[2] };
+                                // Keep months in date sort order
+                                app.months.sort((a, b) => {
+                                    const aDate = new Date(a.date);
+                                    const bDate = new Date(b.date);
+                                    if (aDate < bDate) {
+                                        return -1;
+                                    } else if (bDate < aDate) {
+                                        return 1;
+                                    } else {
+                                        return 0;
+                                    }
+                                });
+                                app.months.push(month);
+                            }
+                            // Add month property
+                            month[columns[3]] = Number(columns[4]);
+                        }
+                    }
+                } else {
+                    console.log('Importing JSON');
+                    this.state = JSON.parse(fileAsString);
+                }
+                console.log(this.state);
+                // Save to local storage
+                localStorage.setItem('state', JSON.stringify(this.state));
+            };
+            reader.readAsText(event.target.files[0]);
+        }
+    }
+
 
     processState() {
         const today = new Date();

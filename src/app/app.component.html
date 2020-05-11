@@ -1,5 +1,14 @@
 <div>
     <div *ngIf="state!=null">
+        <div class="import-export">
+            <label class="btn btn-info" (change)="importData($event)">
+                Import<input type="file" multiple="false" accept=".json" hidden>
+            </label>
+            &nbsp;
+            <label class="btn btn-info" (click)="exportData()">Export JSON</label>
+            &nbsp;
+            <label class="btn btn-info" (click)="exportDataCsv()">Export CSV</label>
+        </div>
         <div *ngFor="let application of state.applications">
             <app-metrics-table [application]="application"></app-metrics-table>
         </div>
