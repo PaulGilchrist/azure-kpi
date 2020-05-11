@@ -4,6 +4,7 @@ export interface Connection {
     apiKey: string;
     applicationId: string;
     options: Options;
+    roleName: string,
     url: string;
 }
 

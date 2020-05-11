@@ -1,27 +1,25 @@
-# AzureKpi
+# Azure App Insights KPI & Capacity Planning Automation (Angular edition)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
+## Project Name – `azure-kpi`
 
-## Development server
+## Current State
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Azure stores many separate logs for each hosted application. These logs are brought together in Azure’s “Log Analytics” of “Application Insights” along with a powerful query engine and language named “Kusto” for parsing through the logs to reveal important information.  This query engine is also used for monitoring, alerting, and visualizing metrics.
 
-## Code scaffolding
+Logging is circular with a rolling 90-day window due to the sheer size of data collected, and processing required to directly query against them.  This limits their ability to be used for longer term trend analysis such as Key Performance Indicators (KPI) or resource capacity planning.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Other limitations include each question requiring a separate query, the difficulty running a query against all applications, the lack of a query repository, and the storing of previous query results for historical reference or comparison.
 
-## Build
+## Project Solution
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+This application allows for storing multiple queries in a repository along with a list of application to run against.  The application runs all queries against all application in parallel for blazing fast performance and stores the results in a JSON heiarchy in local storage along with all previous runs.  This data is viewable within the application, or exportable to JSON or CSV file formats for use in other systems.
 
-## Running unit tests
+New results are automatically added monthly allowing for long term retaining of the queries aggregations long past Azures 90 day logging limits.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Future Opportunities
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+* Results stored in a central database
+  * Document DB would be better than SQL due to heiarchy of the data and simple transfer to local application object model
+* UI for adding, removing, or editing applications and queries
+  * Would need to select which application the query applies to (if not all of them)
+* Graphical dashboards or integration with Power BI

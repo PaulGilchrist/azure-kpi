@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { environment } from './../environments/environment';
+
 import { KustoService } from './services/kusto.service';
 import { DependencyName } from './models/dependencyName.model';
 import { Month } from './models/month.model';
 import { Query } from './models/query.model';
 import { State } from './models/state.model';
 import { forkJoin } from 'rxjs';
+import { Application } from './models/application.model';
 
 @Component({
     selector: 'app-root',
@@ -35,6 +38,27 @@ export class AppComponent implements OnInit {
                 err => console.error(err)
             );
         }
+    }
+
+    createNewApp(envApp) {
+        // Create new app
+        const app = {
+            fullName: envApp.fullName,
+            months: [],
+            name: envApp.name
+        };
+        this.state.applications.push(app);
+        // Keep applications in fullName sort order
+        this.state.applications.sort((a, b) => {
+            if (a.fullName < b.fullName) {
+                return -1;
+            } else if (b.fullName < a.fullName) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+        return app;
     }
 
     firstDayOfCurrentMonth() {
@@ -74,7 +98,12 @@ export class AppComponent implements OnInit {
         const firstDayOfCurrentMonth = this.firstDayOfCurrentMonth();
         if (firstDayOfCurrentMonth > this.firstDayOfFollowingMonth(mostRecentDate)) {
             // Loop through applications adding a new month to each, and collecting all the neccessary metrics
-            this.state.applications.forEach(app => {
+            environment.applications.forEach(envApp => {
+                // Get matching app from state
+                let app = this.state.applications.find(a => a.name === envApp.name);
+                if (app === undefined) {
+                    app = this.createNewApp(envApp);
+                }
                 const month: Month = {
                     date: `${firstDayOfCurrentMonth.getMonth() + 1}/1/${firstDayOfCurrentMonth.getFullYear()}`
                 };

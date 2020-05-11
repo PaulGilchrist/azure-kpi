@@ -1,28 +1,6 @@
 {
     "applications": [
         {
-            "fullName": "Accounting/Finance Management - Land Cost Management",
-            "months": [
-                {
-                    "date": "5/1/2020",
-                    "activeEndpointActions": 67,
-                    "activeUsers": 1,
-                    "avgIODataBytesPerSec": 5905,
-                    "avgResponseTimeMilliseconds": null,
-                    "avgResponseTimeEdhMilliseconds": null,
-                    "avgResponseTimeSqlMilliseconds": null,
-                    "maxNormalizedPercentProcessorTime": 6,
-                    "minAvailableMemoryMB": 2174,
-                    "readPercent": 100.0,
-                    "requestErrorPercent": 0.0,
-                    "sqlMaxDtuPercent": null,
-                    "totalRequests": 344578
-                }
-            ],
-            "name": "LCM",
-            "roleName": "lcmwebwestprod"
-        },
-        {
             "fullName": "Construction Portal",
             "months": [
                 {
@@ -56,8 +34,7 @@
                     "totalRequests": 1232002
                 }
             ],
-            "name": "CP",
-            "roleName": "pcpwebwestprod"
+            "name": "CP"
         },
         {
             "fullName": "Enterprise Data Hub",
@@ -114,8 +91,7 @@
                     "totalRequests": 4832354
                 }
             ],
-            "name": "EDH",
-            "roleName": "edhapiwestprod"
+            "name": "EDH"
         },
         {
             "fullName": "Home Designer",
@@ -161,8 +137,28 @@
                     "totalRequests": 456629
                 }
             ],
-            "name": "PHD",
-            "roleName": "phdapiwestprod"
+            "name": "PHD"
+        },
+        {
+            "fullName": "Land Cost Management",
+            "months": [
+                {
+                    "date": "5/1/2020",
+                    "activeEndpointActions": 67,
+                    "activeUsers": 1,
+                    "avgIODataBytesPerSec": 5905,
+                    "avgResponseTimeMilliseconds": null,
+                    "avgResponseTimeEdhMilliseconds": null,
+                    "avgResponseTimeSqlMilliseconds": null,
+                    "maxNormalizedPercentProcessorTime": 6,
+                    "minAvailableMemoryMB": 2174,
+                    "readPercent": 100.0,
+                    "requestErrorPercent": 0.0,
+                    "sqlMaxDtuPercent": null,
+                    "totalRequests": 344578
+                }
+            ],
+            "name": "LCM"
         }
     ]
 }

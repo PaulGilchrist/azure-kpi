@@ -17,27 +17,29 @@ export class KustoService {
             apiKey: null,
             applicationId: null,
             options: null,
+            roleName: null,
             url: null
         };
         const appDetails = environment.applications.find((a) => a.name === name);
         if (appDetails !== undefined) {
             connection.apiKey = appDetails.apiKey;
             connection.applicationId = appDetails.applicationId;
-            connection.url = `https://api.applicationinsights.io/v1/apps/${connection.applicationId}/query`;
             connection.options = {
                 headers: new HttpHeaders({
                     'Content-Type': 'application/json',
                     'X-API-Key': connection.apiKey
                 })
             };
+            connection.roleName = appDetails.roleName;
+            connection.url = `https://api.applicationinsights.io/v1/apps/${connection.applicationId}/query`;
         }
         return connection;
     }
 
     public getKustoResult(application: Application, query: string, dependencyName: string = null): Observable<number> {
         // Query Azure App Insights
-        query = query.replace('<DependencyNameGoesHere>', dependencyName).replace('<RoleNameGoesHere>', application.roleName);
         const connection = this.getConnection(application.name);
+        query = query.replace('<DependencyNameGoesHere>', dependencyName).replace('<RoleNameGoesHere>', connection.roleName);
         return this.http.post<number>(connection.url, { query }, connection.options).pipe(
             map((response: any) => {
                 return response.tables[0].rows[0]; // Only one row will come back
