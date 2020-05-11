@@ -2,8 +2,18 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// How to get roleName using Kusto query = performanceCounters | distinct cloud_RoleName | order by cloud_RoleName asc
+
 export const environment = {
     applications: [
+        {
+            apiKey: 'pfnglu5k3zpujbutgj7dhxldcfludk731samgqys',
+            applicationId: '8730f15e-5653-4809-97c5-d4047e9f4b9a',
+            dependencies: [{ displayName: 'EDH', name: 'edh.pulte.com' }],
+            fullName: 'Automated Market Based Pricing & Positioning',
+            name: 'AMPP',
+            roleName: 'amppapiprod'
+        },
         {
             apiKey: 'pwt3ssx57nqnu4uex66he0ktlzkvp1fqwzpiya82',
             applicationId: '9cd4c50b-c5f5-4067-aad0-4d0b1c07f7cc',
@@ -41,6 +51,20 @@ export const environment = {
             fullName: 'Land Cost Management',
             name: 'LCM',
             roleName: 'lcmwebwestprod'
+        },
+        {
+            apiKey: 'htpj644vedl4tk2h15ak6fqizfwmmkht8bhqu8t3',
+            applicationId: 'd8eb4478-f931-4f6a-8fa3-2704347870d8',
+            fullName: 'Public Websites - Content Delivery',
+            name: 'DMV-CD',
+            roleName: 'pulte-ecomcdprod'
+        },
+        {
+            apiKey: 'vthzdsrllxxw6cmrk253vphuwnx5sjczroe7v07z',
+            applicationId: '9a52333b-0dc5-40ad-90e0-988719fc88cf',
+            fullName: 'Rebate Tracking System',
+            name: 'RTS',
+            roleName: 'rtsprod'
         }
     ],
     production: false

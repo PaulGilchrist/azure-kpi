@@ -1,6 +1,40 @@
 {
     "applications": [
         {
+            "fullName": "Automated Market Based Pricing & Positioning",
+            "months": [
+                {
+                    "date": "4/1/2020",
+                    "activeApplications": 201,
+                    "activeEndpointActions": 714,
+                    "activeUsers": 201,
+                    "avgIODataBytesPerSec": 7235,
+                    "avgResponseTimeSqlMilliseconds": 66,
+                    "maxNormalizedPercentProcessorTime": 6,
+                    "minAvailableMemoryMB": null,
+                    "readPercent": 48.5,
+                    "requestErrorPercent": 0.2,
+                    "totalRequests": 83070,
+                    "avgResponseTimeMilliseconds": 198
+                },
+                {
+                    "date": "5/1/2020",
+                    "activeApplications": 209,
+                    "activeEndpointActions": 558,
+                    "activeUsers": 209,
+                    "avgIODataBytesPerSec": 8343,
+                    "avgResponseTimeSqlMilliseconds": 71,
+                    "maxNormalizedPercentProcessorTime": 4,
+                    "minAvailableMemoryMB": null,
+                    "readPercent": 50.8,
+                    "requestErrorPercent": 0.2,
+                    "totalRequests": 84609,
+                    "avgResponseTimeMilliseconds": 210
+                }
+            ],
+            "name": "AMPP"
+        },
+        {
             "fullName": "Construction Portal",
             "months": [
                 {
@@ -28,8 +62,8 @@
                     "avgResponseTimeSqlMilliseconds": 30,
                     "maxNormalizedPercentProcessorTime": 99,
                     "minAvailableMemoryMB": 998,
-                    "readPercent": 84.0,
-                    "requestErrorPercent": 1.0,
+                    "readPercent": 84,
+                    "requestErrorPercent": 1,
                     "sqlMaxDtuPercent": null,
                     "totalRequests": 1232002
                 }
@@ -51,7 +85,7 @@
                     "avgResponseTimeSqlMilliseconds": 12,
                     "maxNormalizedPercentProcessorTime": 26,
                     "minAvailableMemoryMB": 4574,
-                    "readPercent": 82.0,
+                    "readPercent": 82,
                     "requestErrorPercent": 0.2,
                     "sqlMaxDtuPercent": null,
                     "totalRequests": 4246587
@@ -132,7 +166,7 @@
                     "maxNormalizedPercentProcessorTime": null,
                     "minAvailableMemoryMB": null,
                     "readPercent": 87.9,
-                    "requestErrorPercent": 0.0,
+                    "requestErrorPercent": 0,
                     "sqlMaxDtuPercent": null,
                     "totalRequests": 456629
                 }
@@ -143,22 +177,105 @@
             "fullName": "Land Cost Management",
             "months": [
                 {
+                    "date": "4/1/2020",
+                    "activeApplications": 1,
+                    "activeEndpointActions": 57,
+                    "activeUsers": 1,
+                    "avgIODataBytesPerSec": 8515,
+                    "avgResponseTimeSqlMilliseconds": null,
+                    "maxNormalizedPercentProcessorTime": 3,
+                    "minAvailableMemoryMB": 2374,
+                    "readPercent": 100,
+                    "requestErrorPercent": 0,
+                    "totalRequests": 355237,
+                    "avgResponseTimeMilliseconds": null,
+                    "avgResponseTimeEdhMilliseconds": null
+                },
+                {
                     "date": "5/1/2020",
+                    "activeApplications": 1,
                     "activeEndpointActions": 67,
                     "activeUsers": 1,
                     "avgIODataBytesPerSec": 5905,
-                    "avgResponseTimeMilliseconds": null,
-                    "avgResponseTimeEdhMilliseconds": null,
                     "avgResponseTimeSqlMilliseconds": null,
                     "maxNormalizedPercentProcessorTime": 6,
                     "minAvailableMemoryMB": 2174,
-                    "readPercent": 100.0,
-                    "requestErrorPercent": 0.0,
-                    "sqlMaxDtuPercent": null,
-                    "totalRequests": 344578
+                    "readPercent": 100,
+                    "requestErrorPercent": 0,
+                    "totalRequests": 344578,
+                    "avgResponseTimeMilliseconds": null,
+                    "avgResponseTimeEdhMilliseconds": null
                 }
             ],
             "name": "LCM"
+        },
+        {
+            "fullName": "Public Websites - Content Delivery",
+            "months": [
+                {
+                    "date": "4/1/2020",
+                    "activeApplications": 7811,
+                    "activeEndpointActions": 17210,
+                    "activeUsers": 7811,
+                    "avgIODataBytesPerSec": 8363054,
+                    "avgResponseTimeSqlMilliseconds": 4,
+                    "maxNormalizedPercentProcessorTime": 100,
+                    "minAvailableMemoryMB": 4944,
+                    "readPercent": 41.7,
+                    "requestErrorPercent": 2.7,
+                    "totalRequests": 3963435,
+                    "avgResponseTimeMilliseconds": 527
+                },
+                {
+                    "date": "5/1/2020",
+                    "activeApplications": 9599,
+                    "activeEndpointActions": 18602,
+                    "activeUsers": 9599,
+                    "avgIODataBytesPerSec": 6420514,
+                    "avgResponseTimeSqlMilliseconds": 4,
+                    "maxNormalizedPercentProcessorTime": 100,
+                    "minAvailableMemoryMB": 4972,
+                    "readPercent": 31.9,
+                    "requestErrorPercent": 2.6,
+                    "totalRequests": 4616202,
+                    "avgResponseTimeMilliseconds": 500
+                }
+            ],
+            "name": "DMV-CD"
+        },
+        {
+            "fullName": "Rebate Tracking System",
+            "months": [
+                {
+                    "date": "4/1/2020",
+                    "activeApplications": 80,
+                    "activeEndpointActions": 127,
+                    "activeUsers": 80,
+                    "avgIODataBytesPerSec": 22035,
+                    "avgResponseTimeSqlMilliseconds": 7,
+                    "maxNormalizedPercentProcessorTime": 98,
+                    "minAvailableMemoryMB": null,
+                    "readPercent": 74.3,
+                    "requestErrorPercent": 0.2,
+                    "totalRequests": 71329,
+                    "avgResponseTimeMilliseconds": 497
+                },
+                {
+                    "date": "5/1/2020",
+                    "activeApplications": 72,
+                    "activeEndpointActions": 123,
+                    "activeUsers": 72,
+                    "avgIODataBytesPerSec": 32474,
+                    "avgResponseTimeSqlMilliseconds": 17,
+                    "maxNormalizedPercentProcessorTime": 100,
+                    "minAvailableMemoryMB": null,
+                    "readPercent": 71.1,
+                    "requestErrorPercent": 0.1,
+                    "totalRequests": 81817,
+                    "avgResponseTimeMilliseconds": 616
+                }
+            ],
+            "name": "RTS"
         }
     ]
 }
