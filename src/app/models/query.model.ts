@@ -1,14 +1,11 @@
 // performanceCounters needs <RoleNameGoesHere> replaced with state.application.roleName
+// Must replace <FromDateGoesHere>, <ToDateGoesHere>, <RoleNameGoesHere>, and <DependencyNameGoesHere> when found in query strings below
 export enum Query {
     // Only applicable to EDH
     ActiveApplications = 'requests | where timestamp between (datetime("<FromDateGoesHere>") .. datetime("<ToDateGoesHere>")) and user_Id != "testing" | distinct user_Id | summarize ApplicationsUsingEdh=count(user_Id)',
-    // Does not work for Construction Portal
-    ActiveEndpointActions = 'requests | where timestamp between (datetime("<FromDateGoesHere>") .. datetime("<ToDateGoesHere>")) and name !contains("swagger") | project name = trim_end(@"[(](.*)[)]\S*", name) | project name = tolower(trim_end(@"[0-9]*", name))| summarize Endpoints=dcount(name)',
-    // Only works for Construction Portal
-    ActiveEndpointActionsCP = 'requests | where timestamp between (datetime("<FromDateGoesHere>") .. datetime("<ToDateGoesHere>")) | where name matches regex @"(DELETE|GET|PATCH|POST|PUT)\s[^/]" | summarize Endpoints=dcount(name)',
+    ActiveEndpointActions = 'requests | where timestamp between (datetime("<FromDateGoesHere>") .. datetime("<ToDateGoesHere>")) and name !contains("swagger") and (url contains("/api/") or url contains("/odata/")) | project name = trim_end(@"[(](.*)[)]\S*", name) | project name = tolower(trim_end(@"[0-9]*", name)) | summarize Endpoints=dcount(name)',
     ActiveUsers = 'requests | where timestamp between (datetime("<FromDateGoesHere>") .. datetime("<ToDateGoesHere>")) | distinct user_Id | summarize ActiveUsers=count(user_Id)',
     AvgIODataBytesPerSec = 'performanceCounters | where timestamp between (datetime("<FromDateGoesHere>") .. datetime("<ToDateGoesHere>")) and cloud_RoleName == "<RoleNameGoesHere>" and counter =="IO Data Bytes/sec" | summarize avgIODataBytesPerSec=round(avg(value),0) by category, counter | project avgIODataBytesPerSec',
-    // Must replace <DependencyNameGoesHere> with DependencyName enum
     AvgResponseTimeDependencyMilliseconds = 'dependencies | where timestamp between (datetime("<FromDateGoesHere>") .. datetime("<ToDateGoesHere>")) and target contains("<DependencyNameGoesHere>") and success=="True" | summarize AvgResponseTimeMilliseconds=round(avg(duration),0)',
     AvgResponseTimeMilliseconds = 'requests | where timestamp between (datetime("<FromDateGoesHere>") .. datetime("<ToDateGoesHere>")) and (url contains("/api/") or url contains("/odata/")) and success=="True" | summarize AvgResponseTimeMilliseconds=round(avg(duration),0)',
     AvgResponseTimeSqlMilliseconds = 'dependencies | where timestamp between (datetime("<FromDateGoesHere>") .. datetime("<ToDateGoesHere>")) and type == "SQL" and success=="True" | summarize AvgResponseTimeMilliseconds=round(avg(duration),0)',

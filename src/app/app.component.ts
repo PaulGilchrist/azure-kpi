@@ -62,9 +62,9 @@ export class AppComponent implements OnInit {
             this.kustoService.getKustoResult(app, fromDate, toDate, Query.MinAvailableMemoryMB),
             this.kustoService.getKustoResult(app, fromDate, toDate, Query.ReadPercent),
             this.kustoService.getKustoResult(app, fromDate, toDate, Query.RequestErrorPercent),
-            // this.kustoService.getKustoResult(app, Query.SqlMaxDtuPercent)
             this.kustoService.getKustoResult(app, fromDate, toDate, Query.TotalRequests),
             this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeMilliseconds)
+            // this.kustoService.getKustoResult(app, Query.SqlMaxDtuPercent)
         ];
         if (app.name !== 'AMPP' && app.name !== 'DMV-CD' && app.name !== 'EDH' && app.name !== 'RTS') {
             observableArray.push(this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.EDH));
