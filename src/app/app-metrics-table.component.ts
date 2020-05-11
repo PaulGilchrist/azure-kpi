@@ -23,7 +23,7 @@ export class AppMetricsTableComponent implements OnInit {
     }
 
     appHasDataForProperty(months: Month[], propertyName: string) {
-        return months.findIndex(x => x[propertyName] != null) !== -1;
+        return months.findIndex(x => x[propertyName] != null && !isNaN(x[propertyName])) !== -1;
     }
 
 }

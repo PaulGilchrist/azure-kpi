@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
         };
         app.months.push(month);
         this.enableExport = false;
-        let observableArray = [
+        const observableArray = [
             this.kustoService.getKustoResult(app, fromDate, toDate, Query.ActiveApplications),
             this.kustoService.getKustoResult(app, fromDate, toDate, Query.ActiveEndpointActions),
             this.kustoService.getKustoResult(app, fromDate, toDate, Query.ActiveUsers),
@@ -63,21 +63,15 @@ export class AppComponent implements OnInit {
             this.kustoService.getKustoResult(app, fromDate, toDate, Query.ReadPercent),
             this.kustoService.getKustoResult(app, fromDate, toDate, Query.RequestErrorPercent),
             this.kustoService.getKustoResult(app, fromDate, toDate, Query.TotalRequests),
-            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeMilliseconds)
+            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeMilliseconds),
+            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.EDH),
+            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.Aspose),
+            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.Docusign),
+            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.EBillExpress),
+            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.MicrosoftOnline),
+            this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.PicturePark)
             // this.kustoService.getKustoResult(app, Query.SqlMaxDtuPercent)
         ];
-        if (app.name !== 'AMPP' && app.name !== 'DMV-CD' && app.name !== 'EDH' && app.name !== 'RTS') {
-            observableArray.push(this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.EDH));
-        }
-        if (app.name === 'PHD') {
-            observableArray = observableArray.concat([
-                this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.Aspose),
-                this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.Docusign),
-                this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.EBillExpress),
-                this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.MicrosoftOnline),
-                this.kustoService.getKustoResult(app, fromDate, toDate, Query.AvgResponseTimeDependencyMilliseconds, DependencyName.PicturePark)
-            ]);
-        }
         forkJoin(observableArray).subscribe(results => {
             month.activeApplications = Number(results[0]);
             month.activeEndpointActions = Number(results[1]);
@@ -90,16 +84,12 @@ export class AppComponent implements OnInit {
             month.requestErrorPercent = Number(results[8]);
             month.totalRequests = Number(results[9]);
             month.avgResponseTimeMilliseconds = Number(results[10]);
-            if (app.name !== 'AMPP' && app.name !== 'DMV-CD' && app.name !== 'EDH' && app.name !== 'RTS') {
-                month.avgResponseTimeEdhMilliseconds = Number(results[11]);
-            }
-            if (app.name === 'PHD') {
-                month.avgResponseTimeAsposeMilliseconds = Number(results[12]);
-                month.avgResponseTimeDocusignMilliseconds = Number(results[13]);
-                month.avgResponseTimeEBillExpressMilliseconds = Number(results[14]);
-                month.avgResponseTimeMicrosoftOnlineMilliseconds = Number(results[15]);
-                month.avgResponseTimePictureParkMilliseconds = Number(results[16]);
-            }
+            month.avgResponseTimeEdhMilliseconds = Number(results[11]);
+            month.avgResponseTimeAsposeMilliseconds = Number(results[12]);
+            month.avgResponseTimeDocusignMilliseconds = Number(results[13]);
+            month.avgResponseTimeEBillExpressMilliseconds = Number(results[14]);
+            month.avgResponseTimeMicrosoftOnlineMilliseconds = Number(results[15]);
+            month.avgResponseTimePictureParkMilliseconds = Number(results[16]);
             // Save to local storage
             localStorage.setItem('state', JSON.stringify(this.state));
             this.enableExport = true;
