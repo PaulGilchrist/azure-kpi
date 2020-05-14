@@ -15,7 +15,7 @@
                 </thead>
                 <tbody>
                     <ng-container *ngFor="let query of environment.queries">
-                        <tr *ngIf="appHasDataForProperty(application.months, query.name)" (click)="selectQuery(query)">
+                        <tr class="selectable" *ngIf="appHasDataForProperty(application.months, query.name)" (click)="selectQuery(query)">
                             <td>{{query.displayName}}</td>
                             <ng-container *ngFor="let month of application.months">
                                 <td scope="col">{{numberWithCommas(month[query.name])}}</td>
