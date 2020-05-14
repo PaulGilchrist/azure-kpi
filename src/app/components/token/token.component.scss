@@ -1,0 +1,9 @@
+/* set class and add a tooltip attribute to show tooltip popup */
+.label-tooltip:hover:after {
+  color: white;
+  content: attr(tooltip);
+  position: absolute;
+  background: black;
+  padding: 2px;
+  border-radius: 3px;
+}
