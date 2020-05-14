@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
             this.state = JSON.parse(stateJson);
             this.processState();
         } else {
-            this.http.get<State>('./data/state.json').subscribe(
+            this.http.get<State>('./state.json').subscribe(
                 x => {
                     this.state = x;
                     this.processState();

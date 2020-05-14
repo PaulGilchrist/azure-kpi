@@ -6,7 +6,7 @@
 
 export const environment = {
     appInsights: {
-        instrumentationKey: '2ca976b1-98fd-4564-a913-967c14b3a19b'
+        instrumentationKey: '6cf7b8be-bdd5-4505-a9f8-fb68f1f594c0'
     },
     applications: [
         {

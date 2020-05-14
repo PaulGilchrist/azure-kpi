@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod=true",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -30,7 +30,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.5.1",
     "ngx-toastr": "^12.0.1",
-    "pg-d3-utils": "^1.0.11",
+    "pg-d3-utils": "^1.0.12",
     "pg-utilities": "^1.0.4",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
