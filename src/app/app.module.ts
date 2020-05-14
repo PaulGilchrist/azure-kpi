@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { AdalService, AdalGuard } from 'adal-angular4';
+import { AppInsightsService } from './services/app-insights.service';
 
 // Components
 import { AppRoutingModule } from './app-routing.module';
@@ -11,7 +13,6 @@ import { HomeComponent } from './components/home/home.component';
 import { ModalGraphComponent } from './components/modal-graph/modal-graph.component';
 import { TokenComponent } from './components/token/token.component';
 // Services
-import { AdalService, AdalGuard } from 'adal-angular4';
 import { KustoService } from './services/kusto.service';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { KustoService } from './services/kusto.service';
     providers: [
         AdalService,
         AdalGuard,
+        AppInsightsService,
         KustoService
     ],
     bootstrap: [AppComponent]

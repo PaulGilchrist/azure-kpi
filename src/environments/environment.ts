@@ -6,7 +6,7 @@
 
 export const environment = {
     appInsights: {
-        instrumentationKey: '<GetFromAzureDevOpsTeam'
+        instrumentationKey: '2ca976b1-98fd-4564-a913-967c14b3a19b'
     },
     applications: [
         {

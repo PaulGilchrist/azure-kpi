@@ -1,7 +1,7 @@
-import { Component, OnInit, Query } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
-import { AdalService } from 'adal-angular4';
+import { AppInsightsService } from '../../services/app-insights.service';
 
 import { environment } from '../../../environments/environment';
 
@@ -21,16 +21,10 @@ export class HomeComponent implements OnInit {
     query = null; // { displayName: string, name: string }
     state: State = null;
 
-    constructor(public adalService: AdalService, private http: HttpClient, public kustoService: KustoService) {
-        // init requires object with clientId and tenant properties
-        adalService.init(environment.azureAuthProvider);
-    }
+    constructor(private appInsightsService: AppInsightsService, private http: HttpClient, public kustoService: KustoService) {}
 
     ngOnInit() {
-        this.adalService.handleWindowCallback();
-        if (!this.adalService.userInfo.authenticated) {
-            this.adalService.login();
-        }
+        this.appInsightsService.logPageView('home.component', '/home');
         // Get data from local storage if it exists otherwise pull from state.json
         const stateJson = localStorage.getItem('state');
         if (stateJson) {
