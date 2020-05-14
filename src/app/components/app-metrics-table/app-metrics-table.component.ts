@@ -1,9 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { environment } from './../environments/environment';
+import { environment } from '../../../environments/environment';
 
-import { Application } from './models/application.model';
-import { Month } from './models/month.model';
+import { Application } from '../../models/application.model';
+import { Month } from '../../models/month.model';
 
 @Component({
     selector: 'app-metrics-table',
@@ -16,6 +16,8 @@ export class AppMetricsTableComponent {
 
     @Input() application: Application;
 
+    @Output() readonly querySelect = new EventEmitter<any>(); // { displayName: string, name: string }
+
     numberWithCommas(x) {
         if (x) {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -26,5 +28,11 @@ export class AppMetricsTableComponent {
     appHasDataForProperty(months: Month[], propertyName: string) {
         return months.findIndex(x => x[propertyName] != null && !isNaN(x[propertyName])) !== -1;
     }
+
+    selectQuery(query): void {
+        this.querySelect.emit(query);
+    }
+
+
 
 }

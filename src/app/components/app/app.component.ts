@@ -1,15 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Query } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { environment } from './../environments/environment';
+import { environment } from '../../../environments/environment';
 
-import { KustoService } from './services/kusto.service';
-import { Month } from './models/month.model';
-import { State } from './models/state.model';
+import { KustoService } from '../../services/kusto.service';
+import { Month } from '../../models/month.model';
+import { State } from '../../models/state.model';
 import { forkJoin } from 'rxjs';
-import { Application } from './models/application.model';
-import { PropertyBindingType } from '@angular/compiler';
-import { tickStep } from 'd3';
+import { Application } from '../../models/application.model';
 
 @Component({
     selector: 'app-root',
@@ -17,9 +15,8 @@ import { tickStep } from 'd3';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-    title = 'azure-kpi';
-    edhApplicationsMakingRequestsLastMonth: number;
     enableExport = true;
+    query = null; // { displayName: string, name: string }
     state: State = null;
 
     constructor(private http: HttpClient, public kustoService: KustoService) { }
@@ -178,6 +175,10 @@ export class AppComponent implements OnInit {
         }
     }
 
+    onQuerySelect(query) {
+        // Pass name and displayName to graph-modal
+        this.query = query;
+    }
 
     processState() {
         const today = new Date();
