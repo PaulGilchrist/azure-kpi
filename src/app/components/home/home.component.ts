@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { forkJoin } from 'rxjs';
 import { AppInsightsService } from '../../services/app-insights.service';
 
+import utilities from 'pg-utilities';
 import { environment } from '../../../environments/environment';
 
 import { KustoService } from '../../services/kusto.service';
@@ -73,15 +74,7 @@ export class HomeComponent implements OnInit {
         };
         this.state.applications.push(app);
         // Keep applications in fullName sort order
-        this.state.applications.sort((a, b) => {
-            if (a.fullName < b.fullName) {
-                return -1;
-            } else if (b.fullName < a.fullName) {
-                return 1;
-            } else {
-                return 0;
-            }
-        });
+        utilities.sort(this.state.applications, 'fullName');
         return app;
     }
 
@@ -149,17 +142,7 @@ export class HomeComponent implements OnInit {
                             if (month === undefined) {
                                 month = { date: columns[2] };
                                 // Keep months in date sort order
-                                app.months.sort((a, b) => {
-                                    const aDate = new Date(a.date);
-                                    const bDate = new Date(b.date);
-                                    if (aDate < bDate) {
-                                        return -1;
-                                    } else if (bDate < aDate) {
-                                        return 1;
-                                    } else {
-                                        return 0;
-                                    }
-                                });
+                                utilities.sort(app.months, 'date');
                                 app.months.push(month);
                             }
                             // Add month property
