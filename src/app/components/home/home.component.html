@@ -1,10 +1,6 @@
 <div *ngIf="state!=null">
     <app-modal-graph [applications]="state.applications" [query]="query"></app-modal-graph>
     <div class="import-export">
-        <label class="btn btn-info" (change)="importData($event)">
-            Import<input type="file" multiple="false" accept=".json" hidden>
-        </label>
-        &nbsp;
         <label class="btn btn-info" (click)="exportData()">Export JSON</label>
         &nbsp;
         <label class="btn btn-info" (click)="exportDataCsv()">Export CSV</label>

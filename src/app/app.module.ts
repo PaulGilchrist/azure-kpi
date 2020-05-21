@@ -12,8 +12,6 @@ import { D3GraphComponent } from './components/d3-graph/d3-graph.component';
 import { HomeComponent } from './components/home/home.component';
 import { ModalGraphComponent } from './components/modal-graph/modal-graph.component';
 import { TokenComponent } from './components/token/token.component';
-// Services
-import { KustoService } from './services/kusto.service';
 
 @NgModule({
     declarations: [
@@ -32,8 +30,7 @@ import { KustoService } from './services/kusto.service';
     providers: [
         AdalService,
         AdalGuard,
-        AppInsightsService,
-        KustoService
+        AppInsightsService
     ],
     bootstrap: [AppComponent]
 })
