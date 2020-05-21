@@ -12,6 +12,8 @@ import { D3GraphComponent } from './components/d3-graph/d3-graph.component';
 import { HomeComponent } from './components/home/home.component';
 import { ModalGraphComponent } from './components/modal-graph/modal-graph.component';
 import { TokenComponent } from './components/token/token.component';
+// Services
+import { AzureService } from './services/azure.service';
 
 @NgModule({
     declarations: [
@@ -30,7 +32,8 @@ import { TokenComponent } from './components/token/token.component';
     providers: [
         AdalService,
         AdalGuard,
-        AppInsightsService
+        AppInsightsService,
+        AzureService
     ],
     bootstrap: [AppComponent]
 })

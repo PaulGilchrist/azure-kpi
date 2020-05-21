@@ -1,11 +1,11 @@
-<div *ngIf="state!=null">
-    <app-modal-graph [applications]="state.applications" [query]="query"></app-modal-graph>
+<div *ngIf="metrics!=null">
+    <app-modal-graph [applications]="metrics.applications" [query]="query"></app-modal-graph>
     <div class="import-export">
         <label class="btn btn-info" (click)="exportData()">Export JSON</label>
         &nbsp;
         <label class="btn btn-info" (click)="exportDataCsv()">Export CSV</label>
     </div>
-    <div *ngFor="let application of state.applications">
+    <div *ngFor="let application of metrics.applications">
         <app-metrics-table [application]="application" (querySelect)="onQuerySelect($event)"></app-metrics-table>
     </div>
 </div>

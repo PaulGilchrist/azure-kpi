@@ -1,41 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { AppInsightsService } from '../../services/app-insights.service';
-import { AdalService } from 'adal-angular4';
 
-import { State } from '../../models/state.model';
+import { AzureService } from '../../services/azure.service';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
-    enableExport = true;
+export class HomeComponent implements OnDestroy, OnInit {
     query = null; // { displayName: string, name: string }
-    state: State = null;
+    metrics = null;
 
-    constructor(private appInsightsService: AppInsightsService, private http: HttpClient, public adalService: AdalService) {}
+    subscriptions: Subscription[] = [];
+
+    constructor(private appInsightsService: AppInsightsService, private azureService: AzureService) {}
+
+    ngOnDestroy(): void {
+        // Unsubscribe all subscriptions to avoid memory leak
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
 
     ngOnInit() {
         this.appInsightsService.logPageView('home.component', '/home');
         // Get metrics
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-                Authorization: this.adalService.userInfo.token
-            })
-        };
-        this.http.get<State>('https://apidev-function-app.azurewebsites.net/api/get-metrics', options).subscribe(
-            data => {
-                this.state = data;
-            },
-            error => console.log(error));
+        this.subscriptions.push(this.azureService.getMetrics().subscribe(metrics => {
+            this.metrics = metrics;
+        }));
     }
 
     exportData() {
-        const json = JSON.stringify(this.state);
+        const json = JSON.stringify(this.metrics);
         const blob = new Blob([json], { type: 'application/json' });
         const href = URL.createObjectURL(blob);
         const link = document.createElement('a');
@@ -48,7 +45,7 @@ export class HomeComponent implements OnInit {
 
     exportDataCsv() {
         let csv = 'applicationName,applicationFullName,date,metricName,metricValue\n';
-        this.state.applications.forEach(application =>
+        this.metrics.applications.forEach(application =>
             application.months.forEach(month =>
                 Object.getOwnPropertyNames(month).forEach(metricName => {
                     const metricValue = month[metricName];
