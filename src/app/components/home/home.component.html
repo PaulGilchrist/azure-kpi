@@ -1,3 +1,9 @@
+<div *ngIf="metrics==null" class="center-viewport">
+    <div class="spinner">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div>
+    <div>Starting API and gathering metrics...</div>
+</div>
 <div *ngIf="metrics!=null">
     <app-modal-graph [applications]="metrics.applications" [query]="query"></app-modal-graph>
     <div class="import-export">
