@@ -26,11 +26,6 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              {
-                "glob": "*.json",
-                "input": "src/app/data",
-                "output": "/"
-              },
               "src/web.config"
             ],
             "styles": [
