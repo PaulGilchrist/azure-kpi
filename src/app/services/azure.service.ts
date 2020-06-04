@@ -16,6 +16,12 @@ export class AzureService {
 
     public getMetrics(force: boolean = false): Observable<any> {
         if (force || !this.metrics.getValue()) { // Could also set caching threshold here
+            // Pull data from local storage cache for fast startup while in parallel pulling from Azure
+            const cachedMetrics = localStorage.getItem('kpiMetrics');
+            if(cachedMetrics != null) {
+                this.metrics.next(JSON.parse(cachedMetrics));
+            }
+            // In the future we may decide to only get the metrics from azure if null or current month > last month of collected metrics
             const options = {
                 headers: new HttpHeaders({
                     'Content-Type': 'application/json',
@@ -25,6 +31,7 @@ export class AzureService {
             this.http.get('https://apidev-function-app.azurewebsites.net/api/get-metrics', options).pipe(
                 retryWhen(genericRetryStrategy()),
                 tap(metrics => {
+                    localStorage.setItem('kpiMetrics', JSON.stringify(metrics));
                     this.metrics.next(metrics);
                 }),
                 catchError(this.handleError)
@@ -35,6 +42,12 @@ export class AzureService {
 
     public getQueries(force: boolean = false): Observable<any> {
         if (force || !this.queries.getValue()) { // Could also set caching threshold here
+            // Pull data from local storage cache for fast startup while in parallel pulling from Azure
+            const cachedQueries = localStorage.getItem('kpiQueries');
+            if(cachedQueries != null) {
+                this.queries.next(JSON.parse(cachedQueries));
+            }
+            // In the future we may decide to only get the metrics from azure if null or current month > last month of collected metrics
             const options = {
                 headers: new HttpHeaders({
                     'Content-Type': 'application/json',
@@ -44,6 +57,7 @@ export class AzureService {
             this.http.get('https://apidev-function-app.azurewebsites.net/api/get-queries', options).pipe(
                 retryWhen(genericRetryStrategy()),
                 tap(queries => {
+                    localStorage.setItem('kpiQueries', JSON.stringify(queries));
                     this.queries.next(queries);
                 }),
                 catchError(this.handleError)
