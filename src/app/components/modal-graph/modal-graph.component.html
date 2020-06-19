@@ -10,7 +10,7 @@
             <div class="modal-body">
                 <div style="margin-top: 10px;">
                     <div class="chart">
-                        <app-d3-graph *ngIf="yKey" type="line" [data]="applications" xKey="date" xType="date" [yKey]="yKey" zKey="months" width="1000" height="600" labels="none"></app-d3-graph>
+                        <app-d3-graph *ngIf="yKey" type="line" [data]="applications" xKey="date" xType="date" [yKey]="yKey" zKey="months" width="1000" height="600" [padding]="53" labels="none"></app-d3-graph>
                         <div class="chart-footer">
                             <span *ngFor="let application of applications; let index=index" [class]="'d3-path-' + index">{{application.name}}{{applications.length-1>index ? ',' : ''}} </span>
                         </div>

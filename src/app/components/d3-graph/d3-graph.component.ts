@@ -17,6 +17,7 @@ export class D3GraphComponent implements OnInit, OnChanges {
     @Input() data: any = null;
     @Input() height = 300;
     @Input() labels = 'all';
+    @Input() padding = 50; // Only used for 'line' or 'scatter' to make room for the x and y axis lables
     @Input() type = 'line'; // Valid options are 'line', 'bar', 'pie' or 'scatter'
     @Input() warningLevel = Infinity;
     @Input() width = 350;
@@ -43,6 +44,7 @@ export class D3GraphComponent implements OnInit, OnChanges {
             el: this.el.nativeElement,
             height: this.height,
             labels: this.labels,
+            padding: this.padding,
             tooltip: this.tooltip,
             type: this.type,
             warningLevel: this.warningLevel,
