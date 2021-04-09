@@ -3,7 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, throwError as observableThrowError, Observable} from 'rxjs';
 import { catchError,  retryWhen, tap } from 'rxjs/operators';
 
-import { AdalService } from 'adal-angular4';
+import { OAuthService } from 'angular-oauth2-oidc';
+import { environment } from './../../environments/environment';
 
 import { genericRetryStrategy } from './generic-retry-strategy';
 
@@ -12,7 +13,7 @@ export class AzureService {
     private metrics = new BehaviorSubject(null);
     private queries = new BehaviorSubject(null);
 
-    constructor(private adalService: AdalService, private http: HttpClient) { }
+    constructor(private authService: OAuthService, private http: HttpClient) { }
 
     public getMetrics(force: boolean = false): Observable<any> {
         if (force || !this.metrics.getValue()) { // Could also set caching threshold here
@@ -25,10 +26,10 @@ export class AzureService {
             const options = {
                 headers: new HttpHeaders({
                     'Content-Type': 'application/json',
-                    Authorization: this.adalService.userInfo.token
+                    Authorization: this.authService.getIdToken()
                 })
             };
-            this.http.get('https://apidev-function-app.azurewebsites.net/api/get-metrics', options).pipe(
+            this.http.get(`${environment.apiUrl}/get-metrics`, options).pipe(
                 retryWhen(genericRetryStrategy()),
                 tap(metrics => {
                     localStorage.setItem('kpiMetrics', JSON.stringify(metrics));
@@ -51,10 +52,10 @@ export class AzureService {
             const options = {
                 headers: new HttpHeaders({
                     'Content-Type': 'application/json',
-                    Authorization: this.adalService.userInfo.token
+                    Authorization: this.authService.getIdToken()
                 })
             };
-            this.http.get('https://apidev-function-app.azurewebsites.net/api/get-queries', options).pipe(
+            this.http.get(`${environment.apiUrl}/get-queries`, options).pipe(
                 retryWhen(genericRetryStrategy()),
                 tap(queries => {
                     localStorage.setItem('kpiQueries', JSON.stringify(queries));

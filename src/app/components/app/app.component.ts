@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AdalService } from 'adal-angular4';
+import {OAuthService} from 'angular-oauth2-oidc';
+import {config} from './../../authConfig';
 import { AppInsightsService } from '../../services/app-insights.service';
-
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -12,16 +11,14 @@ import { environment } from '../../../environments/environment';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-    constructor(private adalService: AdalService, private appInsightsService: AppInsightsService, public router: Router) {
-        // init requires object with clientId and tenant properties
-        adalService.init(environment.azureAuthProvider);
-    }
+    constructor(private authService: OAuthService, private appInsightsService: AppInsightsService, public router: Router) {}
 
     ngOnInit(): void {
-        this.adalService.handleWindowCallback();
-        if (!this.adalService.userInfo.authenticated) {
-            this.adalService.login();
-        }
+        this.authService.configure(config);
+        this.authService.timeoutFactor=0.3;
+        this.authService.setupAutomaticSilentRefresh();
+        this.authService.loadDiscoveryDocumentAndLogin();
+        console.log(this.authService.getIdentityClaims());
         this.appInsightsService.logPageView('app.component', '/');
     }
 

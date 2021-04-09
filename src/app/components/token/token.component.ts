@@ -1,26 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { AdalService } from 'adal-angular4';
+import { AppInsightsService } from './../../services/app-insights.service';
+import {OAuthService} from 'angular-oauth2-oidc';
 
 @Component({
-  selector: 'app-token',
-  styleUrls: ['./token.component.scss'],
-  templateUrl: './token.component.html'
+    selector: 'app-token',
+    styleUrls: ['./token.component.scss'],
+    templateUrl: './token.component.html'
 })
-export class TokenComponent {
-  constructor(
-    public adalService: AdalService,
-  ) {}
+export class TokenComponent implements OnInit {
 
-  getDateString(num: number): string {
-    let returnString = '';
-    if (num) {
-      returnString = num + ' (' + new Date(num * 1000) + ')';
+    token: any = this.authService.getIdentityClaims();
+    rawIdToken = this.authService.getIdToken();
+
+    constructor(
+        private appInsightsService: AppInsightsService,
+        private authService: OAuthService
+    ) { }
+
+    ngOnInit(): void {
+        this.appInsightsService.logPageView('token.component', '/token');
+        // // Initialize tooltips just for this component
+        // $(function() {
+        // 	// No typings for bootstrap's tooltip
+        // 	$('my-token [data-toggle="tooltip"]')).tooltip({ container: 'body' });
+        // });
     }
-    return returnString;
-  }
 
-  logout(): void {
-    this.adalService.logOut();
-  }
+    getDateString(num: any): string {
+        let returnString = '';
+        if (num) {
+            returnString = num + ' (' + new Date(num * 1000) + ')';
+        }
+        return returnString;
+    }
+
+    logout(): void {
+        this.authService.logOut();
+    }
 }
+ 

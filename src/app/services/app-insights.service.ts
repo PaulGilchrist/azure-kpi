@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AppInsights } from 'applicationinsights-js';
+import {OAuthService} from 'angular-oauth2-oidc';
 
 import { environment } from '../../environments/environment';
-import { AdalService } from 'adal-angular4';
 
 @Injectable()
 export class AppInsightsService {
@@ -11,7 +11,7 @@ export class AppInsightsService {
         instrumentationKey: environment.appInsights.instrumentationKey
     };
 
-    constructor(public adalService: AdalService) {
+    constructor(private authService: OAuthService) {
         if (!AppInsights.config) {
             AppInsights.downloadAndSetup(this.config);
         }
@@ -38,8 +38,9 @@ export class AppInsightsService {
     }
 
     setUser() {
-        if (this.adalService.userInfo.authenticated) {
-            AppInsights.setAuthenticatedUserContext(this.adalService.userInfo.profile.upn);
+        if (!!this.authService.getIdToken()) {
+            const claims: any = this.authService.getIdentityClaims();
+            AppInsights.setAuthenticatedUserContext(claims.preferred_username);
         } else {
             AppInsights.clearAuthenticatedUserContext();
         }
